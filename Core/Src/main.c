@@ -166,9 +166,6 @@ int main(void) {
     lv_port_disp_init();
     analog(lv_scr_act());
     HAL_TIM_Base_Start_IT(&htim6);
-    HAL_GPIO_TogglePin(LED_R_GPIO_Port, LED_R_Pin);
-    HAL_GPIO_TogglePin(LED_G_GPIO_Port, LED_G_Pin);
-    HAL_GPIO_TogglePin(LED_B_GPIO_Port, LED_B_Pin);
 
     /* USER CODE END 2 */
 
