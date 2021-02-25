@@ -161,15 +161,14 @@ int main(void) {
     MX_TIM6_Init();
     MX_QUADSPI_Init();
     /* USER CODE BEGIN 2 */
+    HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_SET);
+    HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_SET);
     lvtick = false;
     lv_init();
     lv_port_disp_init();
     analog(lv_scr_act());
     HAL_TIM_Base_Start_IT(&htim6);
-    HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_SET);
-
     /* USER CODE END 2 */
 
     /* Infinite loop */
