@@ -39,7 +39,7 @@ static void gpu_fill(lv_disp_drv_t *disp_drv, lv_color_t *dest_buf, lv_coord_t d
 /**********************
  *  STATIC VARIABLES
  **********************/
-
+bool DmaOkFlag = false;
 /**********************
  *      MACROS
  **********************/
@@ -155,6 +155,7 @@ static void disp_flush(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_
 
 //    int32_t x;
 //    int32_t y;
+    DmaOkFlag = false;
     LCD_Show_Image(area->x1, area->y1, area->x2 - area->x1 + 1, area->y2 - area->y1 + 1, &(color_p->full));
 //    for(y = area->y1; y <= area->y2; y++) {
 //        for(x = area->x1; x <= area->x2; x++) {
@@ -167,8 +168,15 @@ static void disp_flush(lv_disp_drv_t *disp_drv, const lv_area_t *area, lv_color_
 
     /* IMPORTANT!!!
      * Inform the graphics library that you are ready with the flushing*/
+    while (!DmaOkFlag) {}
     lv_disp_flush_ready(disp_drv);
 }
+
+void HAL_SPI_TxCpltCallback(SPI_HandleTypeDef *hspi) {
+    HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_RESET);
+    DmaOkFlag = true;
+}
+
 
 /*OPTIONAL: GPU INTERFACE*/
 #if LV_USE_GPU

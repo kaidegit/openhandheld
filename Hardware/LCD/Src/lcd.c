@@ -600,16 +600,18 @@ void LCD_Show_Image(uint16_t x, uint16_t y, uint16_t width, uint16_t height, con
 
     LCD_WR_RS(1);
 
+    HAL_SPI_Transmit_DMA(&hspi1, (uint8_t *) p, img_size);
+
     /* SPI每次最大发送2^16 = 65536个数据,图片最大大小为240*240*2 = 115200，会超过此大小，所以设计循环发送算法 */
-    for (int i = 0; i <= img_size / 65536; i++) {
-        if (remain_size / 65536 >= 1) {
-            LCD_SPI_Send((uint8_t *) p, 65535);
-            p += 65535;
-            remain_size -= 65535;
-        } else {
-            LCD_SPI_Send((uint8_t *) p, remain_size % 65535);
-        }
-    }
+//    for (int i = 0; i <= img_size / 65536; i++) {
+//        if (remain_size / 65536 >= 1) {
+//            LCD_SPI_Send((uint8_t *) p, 65535);
+//            p += 65535;
+//            remain_size -= 65535;
+//        } else {
+//            LCD_SPI_Send((uint8_t *) p, remain_size % 65535);
+//        }
+//    }
 }
 
 #endif /*  USE_PICTURE_DISPLAY */
