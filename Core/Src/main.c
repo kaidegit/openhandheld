@@ -71,7 +71,6 @@ uint8_t Second = 2;
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-
 /* USER CODE BEGIN PFP */
 static void update_time(struct _lv_task_t *arg) {
     if (lvHour != NULL) {
@@ -157,13 +156,13 @@ int main(void) {
     MX_GPIO_Init();
     MX_DMA_Init();
     MX_SPI1_Init();
-    MX_USART1_UART_Init();
     MX_TIM6_Init();
     MX_QUADSPI_Init();
+    MX_USART1_UART_Init();
     /* USER CODE BEGIN 2 */
-    HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_SET);
-    HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_SET);
+//    HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);
+//    HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_SET);
+//    HAL_GPIO_WritePin(LED_B_GPIO_Port, LED_B_Pin, GPIO_PIN_SET);
     lvtick = false;
     lv_init();
     lv_port_disp_init();
